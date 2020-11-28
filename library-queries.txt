@@ -1,0 +1,52 @@
+create table author (
+    author_id int unsigned auto_increment primary key,
+    first_name varchar(45) not null,
+    last_name varchar(50) not null
+) engine=innodb;
+
+create table publisher (
+    publisher_id int unsigned auto_increment primary key,
+    name varchar(100) not null,
+    website varchar(100) not null
+) engine=innodb;
+
+create table user (
+    user_id int unsigned auto_increment primary key,
+    name varchar(50) not null,
+    email varchar(100) not null
+) engine=innodb;
+
+create table books (
+    book_id int unsigned auto_increment primary key,
+    title varchar(100) not null,
+    sypnosis text not null,
+    user_id int unsigned not null,
+    foreign key(user_id) references user(user_id)
+) engine=innodb;
+
+remove userID, add edition int
+
+create table author_book (
+    author_book_id int unsigned auto_increment primary key,
+    author_id int unsigned not null,
+    foreign key(author_id) references author(author_id),
+    book_id int unsigned not null,
+    foreign key(book_id) references books(book_id)
+) engine=innodb;
+
+create table book_publisher (
+    book_publisher_id int unsigned auto_increment primary key,
+    publisher_id int unsigned not null,
+    foreign key(publisher_id) references publisher(publisher_id),
+    book_id int unsigned not null,
+    foreign key(book_id) references books(book_id)
+) engine=innodb;
+
+create table copy (
+    copy_id int unsigned auto_increment primary key,
+    `condition` varchar(20) not null,
+    book_id int unsigned not null,
+    foreign key(book_id) references books(book_id)
+) engine=innodb;
+
+add copy_user table
